@@ -79,19 +79,38 @@ src-tauri/target/release/bundle/nsis/*.exe   # NSIS 安装向导
 src-tauri/target/release/bundle/msi/*.msi    # MSI 安装包
 ```
 
+## 下载安装（推荐）
+
+从 **GitHub Releases** 直接下载，无需自行编译：
+
+👉 https://github.com/xlc0007/timeline/releases/latest
+
+| 附件 | 用途 |
+| --- | --- |
+| `ShiguangTimeline_<版本>_x64_installer.zip` | **推荐**。解压后双击里面的 `*-setup.exe` 安装 |
+| `ShiguangTimeline_<版本>_x64-setup.exe` | NSIS 安装器，直接双击安装 |
+| `ShiguangTimeline_<版本>_x64.msi` | MSI 安装包，适合批量部署 |
+| `shiguang-tiaoxian-src-<版本>.zip` | 源码快照 |
+
+安装完成后会**自动在桌面和开始菜单创建「时光线条」快捷方式**。
+
+> 首次运行若出现 Windows SmartScreen 提示，点「更多信息」→「仍要运行」即可（应用未购买代码签名证书）。
+
 ## 安装
 
-运行构建出的 `*.exe`（NSIS 安装向导）或 `*.msi` 即可，双击按提示安装。应用为 x64 架构，无外部依赖，首次启动即创建本地数据库。
+运行构建出的 `*.exe`（NSIS 安装向导）或 `*.msi` 即可，双击按提示安装。应用为 x64 架构，无外部依赖，首次启动即创建本地数据库。NSIS 安装向导默认勾选创建桌面快捷方式。
 
 ## 发布（GitHub Actions）
 
-推送版本标签 `v*`（如 `v0.1.0`）时，`.github/workflows/release.yml` 会在 `windows-latest` 上自动：
+推送版本标签 `v*`（如 `v0.1.3`）时，`.github/workflows/release.yml` 会在 `windows-latest` 上自动：
 
 1. 安装 Node 与 Rust；
 2. 将标签版本同步写入 `tauri.conf.json`；
 3. 构建 NSIS 与 MSI 安装包；
-4. 用 `git archive` 生成源码 ZIP；
-5. 将安装包与源码 ZIP 作为 Release 附件发布。
+4. 将安装包重命名为 ASCII 文件名（避免中文名在附件上传时被吞）；
+5. 把 `*-setup.exe` 打成 `ShiguangTimeline_<版本>_x64_installer.zip`；
+6. 用 `git archive` 生成源码 ZIP；
+7. 将以上文件作为 Release 附件发布。
 
 构建产物**不会**提交进源码分支（`.gitignore` 已忽略 `target/`、`dist/`、`node_modules/` 及 `*.exe`、`*.msi`、`*.zip`）。
 
