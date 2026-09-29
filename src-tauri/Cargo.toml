@@ -1,0 +1,28 @@
+[package]
+name = "shiguang-tiaoxian"
+version = "0.1.0"
+description = "时光线条 — 未来计划时间轴（本地离线）"
+authors = ["时光线条"]
+edition = "2021"
+
+[lib]
+name = "shiguang_tiaoxian_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+# 修复 build 依赖图（tauri-build -> schemars -> indexmap）中 indexmap 未启用 std 导致的编译失败
+indexmap = { version = "=1.8.2", features = ["std"] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+# 修复 schemars 0.8.22 与 indexmap 的泛型不兼容：锁定 2 泛型版本并显式启用 std
+indexmap = { version = "=1.8.2", features = ["std"] }
+
+[profile.release]
+strip = true

@@ -1,0 +1,32 @@
+# Node
+node_modules
+dist
+dist-ssr
+*.local
+
+# Rust / Tauri
+src-tauri/target
+src-tauri/gen/schemas
+
+# 构建产物 —— 不提交进源码分支，仅作为 Release 附件
+*.msi
+*.exe
+*.zip
+*.dmg
+*.deb
+*.AppImage
+*.rpm
+
+# 日志
+logs
+*.log
+npm-debug.log*
+
+# vite/vitest 临时文件
+*.timestamp-*.mjs
+
+# 编辑器
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
